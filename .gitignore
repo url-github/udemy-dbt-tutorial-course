@@ -1,4 +1,5 @@
 /venv
+/venv2
 .user.yml
 /logs
 logs
