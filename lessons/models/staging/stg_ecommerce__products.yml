@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_ecommerce__products
+    description: "Table of products on the online store"
+    columns:
+      - name: product_id
+        data_type: int64
+        description: ""
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+
+      - name: cost
+        data_type: float64
+        description: "How much the product cost the business to purchase"
+
+      - name: retail_price
+        data_type: float64
+        description: "How much the product retails for on the online store"
+        tests:
+          - not_null
+
+      - name: department
+        data_type: string
+        description: "Whether the item is Menswear or Womenswear"

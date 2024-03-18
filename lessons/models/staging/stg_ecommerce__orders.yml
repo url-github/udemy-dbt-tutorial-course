@@ -47,6 +47,6 @@ models:
         data_type: timestamp
         description: ""
 
-      - name: num_of_item
+      - name: num_items_ordered
         data_type: int64
         description: ""
