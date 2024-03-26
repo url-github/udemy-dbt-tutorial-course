@@ -5,12 +5,12 @@ name: 'lessons'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
+# Określa, który "profil" dbt będzie używany w projekcie.
+# Profile definiują połączenia do baz danych i inne ustawienia środowiskowe.
 profile: 'lessons'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+# Określają, w których folderach projektu dbt znajdują się modele SQL,
+# analizy, testy, dane początkowe (seeds), makra i migawki (snapshots).
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -18,13 +18,15 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"  # Określa folder, w którym dbt przechowuje skompilowane pliki SQL.
+clean-targets:         # Określa foldery, które zostaną usunięte podczas czyszczenia (dbt clean).
   - "target"
   - "dbt_packages"
 
 
-# Configuring models
+# Konfiguruje modele dbt, określając ich materializację (np. jako tabele w bazie danych),
+# jak również ustawienia dotyczące dokumentacji, takie jak zapisywanie opisów kolumn do BigQuery.
+# Dodatkowo, w tej sekcji możemy określić czas wygaśnięcia tabel.
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
 models:
@@ -33,9 +35,10 @@ models:
     +persist_docs: # Writes all of our column descriptions into BigQuery!
       relation: true
       columns: true
-    # Table deletes 8 640 hours (360 days) after creation
-    +hours_to_expiration: 8640
+    # Table deletes 168 hours (7 days) after creation
+    +hours_to_expiration: 168
 
+# Konfiguruje testy dbt, określając domyślny poziom powagi dla testów w projekcie.
 tests:
   lessons:
-    +severity: warn # All tests in our lesson project default to warn
+    +severity: warn # Wszystkie testy w naszym projekcie lekcji domyślnie wyświetlają ostrzeżenie (nie error)
