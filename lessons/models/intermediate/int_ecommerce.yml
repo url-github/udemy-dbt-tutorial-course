@@ -13,9 +13,7 @@ models:
     columns:
       - name: order_item_id
         tests:
-          - not_null:
-              severity: error
-          - unique:
+          - primary_key:
               severity: error
 
       - name: order_id
@@ -57,9 +55,12 @@ models:
         description: "item_sale_price minus product_cost"
         tests:
           - not_null
-
+          - dbt_utils.expression_is_true:
+              expression: "= (item_sale_price - product_cost)"
 
       - name: item_discount
         description: "product_retail_price minus item_sale_price"
         tests:
           - not_null
+          - dbt_utils.expression_is_true:
+              expression: "= (product_retail_price - item_sale_price)"
