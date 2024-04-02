@@ -36,7 +36,8 @@ models:
       relation: true
       columns: true
     # Table deletes 168 hours (7 days) after creation
-    +hours_to_expiration: 168
+    # Table deletes 8760 hours (1 rok) after creation
+    +hours_to_expiration: 8760
 
 # Konfiguruje testy dbt, określając domyślny poziom powagi dla testów w projekcie.
 tests:
