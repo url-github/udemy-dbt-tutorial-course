@@ -23,6 +23,11 @@ clean-targets:         # Określa foldery, które zostaną usunięte podczas czy
   - "target"
   - "dbt_packages"
 
+# At the start of any dbt process, this will run the get_brand_name() macro in macros/macro_get_brand_name.sql
+# which will create a User Defined Function (UDF) in our schema in BigQuery
+on-run-start:
+  - "{{ get_brand_name() }}"
+
 
 # Konfiguruje modele dbt, określając ich materializację (np. jako tabele w bazie danych),
 # jak również ustawienia dotyczące dokumentacji, takie jak zapisywanie opisów kolumn do BigQuery.
